@@ -10,7 +10,7 @@
   }
 
   // query
-  $sql = "SELECT * FROM articles ORDER BY articles.createDate DESC";
+  $sql = "SELECT * FROM articles ORDER BY articles.posttime DESC";
   $result = $conn->query($sql);
 
   // generate

@@ -26,19 +26,12 @@
 
   // query
   $sql = "INSERT INTO articles (title, author, posttime, path) values (
-          $title, $author, NOW(), $path
+          \"$title\", \"$author\", NOW(), \"$filepath\"
           )";
   $result = $conn->query($sql);
 
-  // generate
-  $data = array();
-  while ($row = $result->fetch_assoc()) {
-    $tmp = array();
-    $tmp['href'] = "article.php?id=" . $row['id'];
-    $tmp['title'] = $row['title'];
-    $tmp['author'] = $row['author'];
-    $tmp['date'] = substr($row['posttime'], 0, 10);
-    $data[] = $tmp;
+  if (!$result) {
+    die("Failed insert to database: " . $conn->error);
   }
 
   // close
@@ -107,6 +100,10 @@
         React.createElement(Container, null),
         document.getElementById('content')
       );
+
+      setTimeout(function() {
+        window.location.href = "index.php";
+      }, 2000);
     </script>
   </body>
 </html>

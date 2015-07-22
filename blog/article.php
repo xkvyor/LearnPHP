@@ -25,7 +25,7 @@
   $data['title'] = $row['title'];
   $data['author'] = $row['author'];
   $data['date'] = substr($row['posttime'], 0, 10);
-  $filepath = "articles/" . $row['path'];
+  $filepath = $row['path'];
   $f = fopen($filepath, "r") or die("Unable to open file!");
   $data['content'] = fread($f, filesize($filepath));
   fclose($f);
@@ -70,7 +70,7 @@
           return (
             <div style={menuStyle}>
               <a style={aStyle} href="index.php">文章列表</a>
-              <a style={aStyle} href="index.php">新的文章</a>
+              <a style={aStyle} href="post.php">新的文章</a>
             </div>
           );
         }
