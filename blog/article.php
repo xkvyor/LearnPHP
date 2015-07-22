@@ -33,7 +33,6 @@
   // close
   $conn->close();
 ?>
-<!-- index.html -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -43,6 +42,10 @@
     <script src="../assets/js/JSXTransformer.js"></script>
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/marked.min.js"></script>
+    <script src="../assets/js/highlight.pack.js"></script>
+    <script src="../assets/js/post.js"></script>
+    <link rel="stylesheet" href="../assets/css/GitHub2.css">
+    <link rel="stylesheet" href="../assets/css/monokai_sublime.css">
   </head>
   <body>
     <div id="content"></div>
