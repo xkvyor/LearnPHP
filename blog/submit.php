@@ -52,7 +52,7 @@
       var Title = React.createClass({
         render: function() {
           return (
-            <h1>Miki 和 她的饲养员</h1>
+            <h1>没想好名字</h1>
           );
         }
       });

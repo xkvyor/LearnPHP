@@ -31,7 +31,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Miki 和 她的饲养员</title>
+    <title>没想好名字</title>
     <script src="../assets/js/react.min.js"></script>
     <script src="../assets/js/JSXTransformer.js"></script>
     <script src="../assets/js/jquery.min.js"></script>
@@ -42,7 +42,7 @@
       var Title = React.createClass({
         render: function() {
           return (
-            <h1>Miki 和 她的饲养员</h1>
+            <h1>没想好名字</h1>
           );
         }
       });
