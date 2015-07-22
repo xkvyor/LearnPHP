@@ -4,5 +4,17 @@ CREATE TABLE articles
   title varchar(255) NOT NULL,
   author varchar(255),
   createDate datetime,
+  path varchar(255),
   PRIMARY KEY (id)
+);
+
+CREATE USER 'blog'@'localhost' IDENTIFIED BY 'password';
+
+GRANT SELECT, INSERT ON blog.* TO 'blog'@'localhost';
+
+INSERT INTO articles (title, author, createDate) values
+(
+  "This is a title",
+  "admin",
+  NOW()
 );
