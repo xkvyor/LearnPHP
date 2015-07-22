@@ -1,0 +1,8 @@
+CREATE TABLE articles
+(
+  id int NOT NULL AUTO_INCREMENT,
+  title varchar(255) NOT NULL,
+  author varchar(255),
+  createDate datetime,
+  PRIMARY KEY (id)
+);
