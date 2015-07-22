@@ -2,7 +2,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	// to load highlightjs
 	hljs.tabReplace = ' ';
 	hljs.initHighlightingOnLoad();
+});
 
+var update = function(){ 
 	var pageParams = {
 			"content": "[P<>]",
 			"options": {
@@ -22,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		codeNode.innerHTML = params["nodeToReplace"].innerHTML;
 		return codeNode;
 	}, {});
-});
+};
 
 var formFontNode = function(params) {
 	if (typeof params == 'undefined' ||
@@ -43,10 +45,12 @@ var formFontNode = function(params) {
 	fontNode.innerHTML = content.replace("<>", nodeToReplace.innerHTML);
 	return fontNode;
 };
+
 var replaceNode = function(nodeToReplace, newNode) {
 	nodeToReplace.parentNode.insertBefore(newNode, nodeToReplace);
 	nodeToReplace.parentNode.removeChild(nodeToReplace);
 };
+
 var replaceAll = function(selector, callback, params) {
 	Array.prototype.forEach.call(document.querySelectorAll(selector),
 		function(nodeToReplace) {
