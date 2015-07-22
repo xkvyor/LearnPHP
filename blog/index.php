@@ -1,33 +1,32 @@
 <?php
   // connect
-  require_once('DB.php');
-  $db = DB::connect("mysql://root:password@localhost/blog");
-  if (DB::iserror($db)) {
-    die($db->getMessage());
+  $server = "localhost";
+  $username = "blog";
+  $password = "password";
+  $dbname = "blog";
+  $conn = new mysqli($server, $username, $password, $dbname);
+  if (!$conn) {
+    die("Connect database failed: " . mysql_connect_error());
   }
 
   // query
   $sql = "SELECT * FROM articles ORDER BY articles.createDate DESC";
-  $q = $db->query($sql);
-  if (DB::iserror($db)) {
-    die($q->getMessage());
-  }
+  $result = $conn->query($sql);
 
   // generate
   $data = array();
-  while ($q->fetchInto($row)) {
-    if (DB::isError($success)) {
-      die($success->getMessage());
-    }
-    var $tmp = array();
+  while ($row = $result->fetch_assoc()) {
+    $tmp = array();
     $tmp['href'] = "article.php?id=" . $row['id'];
     $tmp['title'] = $row['title'];
     $tmp['author'] = $row['author'];
-    $tmp['date'] = substr($row['createTime'], 0, 10);
+    $tmp['date'] = substr($row['createDate'], 0, 10);
     $data[] = $tmp;
   }
+
+  // close
+  $conn->close();
 ?>
-<!-- index.html -->
 <!DOCTYPE html>
 <html>
   <head>
