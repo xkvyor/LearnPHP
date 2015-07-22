@@ -20,7 +20,7 @@
     $tmp['href'] = "article.php?id=" . $row['id'];
     $tmp['title'] = $row['title'];
     $tmp['author'] = $row['author'];
-    $tmp['date'] = substr($row['createDate'], 0, 10);
+    $tmp['date'] = substr($row['posttime'], 0, 10);
     $data[] = $tmp;
   }
 
@@ -31,7 +31,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Hello React</title>
+    <title>Miki 和 她的饲养员</title>
     <script src="../assets/js/react.min.js"></script>
     <script src="../assets/js/JSXTransformer.js"></script>
     <script src="../assets/js/jquery.min.js"></script>
@@ -62,7 +62,7 @@
           return (
             <div style={menuStyle}>
               <a style={aStyle} href="index.php">文章列表</a>
-              <a style={aStyle} href="index.php">新的文章</a>
+              <a style={aStyle} href="post.php">新的文章</a>
             </div>
           );
         }

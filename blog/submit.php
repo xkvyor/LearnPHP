@@ -1,9 +1,18 @@
 <?php
-  if (!$_GET["id"] || ($id = (int)$_GET["id"]) <= 0)
+  if (!$_POST["title"] || !$_POST["author"] || !$_POST["content"])
   {
     header('Location: ' . "index.php", true, 303);
     die();
   }
+
+  $title = $_POST["title"];
+  $author = $_POST["author"];
+  $content = $_POST["content"];
+
+  $filepath = "articles/" . hash('ripemd160', $content);
+  $f = fopen($filepath, "w") or die("Unable to open file!");
+  fwrite($f, $content);
+  fclose($f);
 
   // connect
   $server = "localhost";
@@ -16,33 +25,33 @@
   }
 
   // query
-  $sql = "SELECT * FROM articles WHERE articles.id = $id";
+  $sql = "INSERT INTO articles (title, author, posttime, path) values (
+          $title, $author, NOW(), $path
+          )";
   $result = $conn->query($sql);
 
   // generate
-  $row = $result->fetch_assoc();
   $data = array();
-  $data['title'] = $row['title'];
-  $data['author'] = $row['author'];
-  $data['date'] = substr($row['posttime'], 0, 10);
-  $filepath = "articles/" . $row['path'];
-  $f = fopen($filepath, "r") or die("Unable to open file!");
-  $data['content'] = fread($f, filesize($filepath));
-  fclose($f);
+  while ($row = $result->fetch_assoc()) {
+    $tmp = array();
+    $tmp['href'] = "article.php?id=" . $row['id'];
+    $tmp['title'] = $row['title'];
+    $tmp['author'] = $row['author'];
+    $tmp['date'] = substr($row['posttime'], 0, 10);
+    $data[] = $tmp;
+  }
 
   // close
   $conn->close();
 ?>
-<!-- index.html -->
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title><?php echo $data['title'] ?></title>
+    <title>发布成功</title>
     <script src="../assets/js/react.min.js"></script>
     <script src="../assets/js/JSXTransformer.js"></script>
     <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/js/marked.min.js"></script>
   </head>
   <body>
     <div id="content"></div>
@@ -76,31 +85,8 @@
         }
       });
 
-      var Article = React.createClass({
-        render: function() {
-          var spanStyle = {
-            color: '#777',
-            'font-size': '14px',
-          };
-          var data = this.props.data,
-            rawMarkup = marked(data.content, {sanitize: true});
-          return (
-            <div>
-              <h2>{data.title}</h2>
-              <div>
-                <span style={spanStyle}>{data.author} 发表于 {data.date}</span>
-              </div>
-              <div>
-                <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
-              </div>
-            </div>
-          );
-        }
-      });
-
       var Container = React.createClass({
         render: function() {
-          var data = <?php echo json_encode($data) ?>;
           var style = {
             width: '1000px',
             margin: 'auto',
@@ -109,7 +95,9 @@
             <div style={style}>
               <Title />
               <Menu />
-              <Article data={data} />
+              <div>
+                <p>发布成功</p>
+              </div>
             </div>
           );
         }
