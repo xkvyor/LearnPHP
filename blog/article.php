@@ -43,6 +43,8 @@
     <script src="../assets/js/JSXTransformer.js"></script>
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/marked.min.js"></script>
+    <script src="../assets/js/highlight.pack.js"></script>
+    <script src="../assets/js/common.js"></script>
   </head>
   <body>
     <div id="content"></div>
