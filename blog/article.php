@@ -1,3 +1,35 @@
+<?php
+  if (!$_GET["id"] || ($id = int($_GET["id"])) <= 0)
+  {
+    header('Location: ' . "index.php", true, 303);
+    die();
+  }
+
+  // connect
+  $server = "localhost";
+  $username = "blog";
+  $password = "password";
+  $dbname = "blog";
+  $conn = new mysqli($server, $username, $password, $dbname);
+  if (!$conn) {
+    die("Connect database failed: " . mysql_connect_error());
+  }
+
+  // query
+  $sql = "SELECT * FROM articles WHERE articles.id = $id";
+  $result = $conn->query($sql);
+
+  // generate
+  $row = $result->fetch_assoc()
+  $data = array();
+  $data['title'] = $row['title'];
+  $data['author'] = $row['author'];
+  $data['date'] = substr($row['createDate'], 0, 10);
+  $data['content'] = "This is the *content*.";
+
+  // close
+  $conn->close();
+?>
 <!-- index.html -->
 <!DOCTYPE html>
 <html>
@@ -65,12 +97,7 @@
 
       var Container = React.createClass({
         render: function() {
-          var data = {
-              title: "This is an article",
-              author: "Miki",
-              date: "2015-07-32",
-              content: "This is *another* comment",
-          };
+          var data = <?php echo json_encode($data) ?>;
           var style = {
             width: '1000px',
             margin: 'auto',
