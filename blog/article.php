@@ -1,5 +1,5 @@
 <?php
-  if (!$_GET["id"] || ($id = int($_GET["id"])) <= 0)
+  if (!$_GET["id"] || ($id = (int)$_GET["id"]) <= 0)
   {
     header('Location: ' . "index.php", true, 303);
     die();
@@ -20,12 +20,15 @@
   $result = $conn->query($sql);
 
   // generate
-  $row = $result->fetch_assoc()
+  $row = $result->fetch_assoc();
   $data = array();
   $data['title'] = $row['title'];
   $data['author'] = $row['author'];
   $data['date'] = substr($row['createDate'], 0, 10);
-  $data['content'] = "This is the *content*.";
+  $filepath = "articles/" . $row['path'];
+  $f = fopen($filepath, "r") or die("Unable to open file!");
+  $data['content'] = fread($f, filesize($filepath));
+  fclose($f);
 
   // close
   $conn->close();
