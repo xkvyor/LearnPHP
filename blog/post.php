@@ -181,6 +181,7 @@
       $("#text_input").on("input", function() {
         var str = $("#text_input").val();
         $("#pre").html(marked(str));
+        update();
       });
     </script>
   </body>

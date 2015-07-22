@@ -122,6 +122,8 @@
         React.createElement(Container, null),
         document.getElementById('content')
       );
+
+      update();
     </script>
   </body>
 </html>
