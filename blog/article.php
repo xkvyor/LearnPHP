@@ -20,7 +20,7 @@
   $result = $conn->query($sql);
 
   // generate
-  $row = $result->fetch_assoc()
+  $row = $result->fetch_assoc();
   $data = array();
   $data['title'] = $row['title'];
   $data['author'] = $row['author'];
