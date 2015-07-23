@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	// to load highlightjs
 	hljs.tabReplace = ' ';
 	hljs.initHighlightingOnLoad();
-	update();
 });
 
 var update = function(){ 
